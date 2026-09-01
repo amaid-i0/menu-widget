@@ -46,7 +46,7 @@ const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c
   #wrap{padding:18px;background:#fff;border-radius:22px;
         font-size:16px;line-height:1.6}
   #date{font-size:19px;font-weight:700;margin-bottom:16px}
-  #cols{display:flex;gap:28px;align-items:flex-start;justify-content:center}
+  #cols{display:flex;gap:40px;align-items:flex-start;justify-content:center}
   .col{flex:0 1 auto;min-width:0}
   .corner{margin-bottom:14px}
   .label{opacity:.55;font-size:11px;letter-spacing:.5px;margin-bottom:3px}
