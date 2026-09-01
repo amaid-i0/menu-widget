@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>학식</title>
@@ -14,52 +13,8 @@
   .col{flex:1;min-width:0}
   .corner{margin-bottom:14px}
   .label{opacity:.55;font-size:11px;letter-spacing:.5px;margin-bottom:3px}
-</style>
-</head>
-<body>
-<div id="wrap">
-  <div id="date">불러오는 중…</div>
-  <div id="cols"><div class="col" id="L"></div><div class="col" id="R"></div></div>
-</div>
-<script>
-const API = 'https://script.google.com/macros/s/AKfycbyI1lgfaOwHp2s_kAbCu2jijZ1yCgPB5YaxKQLafCtQFlFJYVnrY7a02mur5AasFOEf/exec';
-const CORNERS = ['간편식','천원의 아침','덮밥/찌개',null,null,'간식코너','교직원식'];
-const RIGHT = [6];
-
-const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-
-async function load(){
-  try{
-    const data = await (await fetch(API)).json();
-    const info = data.dateInfo || {};
-    const w = new Date().getDay();
-    const idx = (w >= 1 && w <= 5) ? w - 1 : 0;
-    const keys = ['mon','tues','wedn','thur','fri'];
-
-    document.getElementById('date').textContent =
-      (info[keys[idx]] || '') + ' (' + ['월','화','수','목','금'][idx] + ')';
-
-    let L = '', R = '';
-    CORNERS.forEach((name, row) => {
-      if(!name) return;
-      const hit = data.menuList.find(m => m.type === row * 5 + idx + 1);
-      const c = (hit && hit.content ? hit.content : '').trim();
-      if(!c || c === '-') return;
-      const block = '<div class="corner"><div class="label">' + esc(name) + '</div>'
-        + c.split(/\r?\n/).filter(Boolean).map(esc).join('<br>') + '</div>';
-      if(RIGHT.includes(row)) R += block; else L += block;
-    });
-
-    document.getElementById('L').innerHTML = L;
-    document.getElementById('R').innerHTML = R;
-    if(!L && !R) document.getElementById('L').textContent = '오늘은 등록된 식단이 없습니다.';
-  }catch(e){
-    document.getElementById('date').textContent = '불러오기 실패';
-    document.getElementById('L').textContent = e;
-  }
-}
-load();
-setInterval(load, 30 * 60 * 1000);
-</script>
-</body>
-</html>
+</style></head>
+<body><div id="wrap">
+  <div id="date">09.02 (수)</div>
+  <div id="cols"><div class="col"><div class="corner"><div class="label">간편식</div>샌드위치<br>쌀식혜</div><div class="corner"><div class="label">천원의 아침</div>사골만두설렁탕</div><div class="corner"><div class="label">덮밥/찌개</div>햄부대찌개*라면사리</div></div><div class="col"><div class="corner"><div class="label">교직원식</div>쌀밥<br>두부콩나물국<br>숯불향제육볶음<br>옥수수볼고구마맛탕<br>고추잎무침<br>양배추샐러드<br>포기김치</div></div></div>
+</div></body></html>
